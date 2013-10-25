@@ -1,11 +1,4 @@
-/*
-
-1. Все, что работает со структурой - в прошлой лабе впихнуть в приват.
-2. Потом создать новый проект и там уже создать второй класс, с указателем.
-3. там на все паблик функции из первого класса сделать указатели, а работающие с консолью - в протектед указатели засунуть.
-*/
-
-#include <iostream>
+п»ї#include <iostream>
 #include <stdlib.h>
 
 using namespace std;
@@ -26,7 +19,7 @@ private:
     void intersection(node*wer,Tree &buf, node*root);
     void copyTree(node *&rootnew, node *rootold);
     void delTree(node *wer);
-    void push(node*&wer,int data);// Вставка элемента в дерево
+    void push(node*&wer,int data);// Р’СЃС‚Р°РІРєР° СЌР»РµРјРµРЅС‚Р° РІ РґРµСЂРµРІРѕ
     void show(node*wer);
     node*check(node*wer,int key);
 public:
@@ -38,7 +31,7 @@ public:
     Tree (const Tree &ob);
     ~Tree();
     void push(int data);
-    void show();          // Вывод дерева на экран
+    void show();          // Р’С‹РІРѕРґ РґРµСЂРµРІР° РЅР° СЌРєСЂР°РЅ
     node*check(int key);
     bool is_empty();
     Tree& operator = (const Tree &ob);
