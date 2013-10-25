@@ -22,6 +22,7 @@ private:
     void push(node*&wer,int data);// Вставка элемента в дерево
     void show(node*wer);
     node*check(node*wer,int key);
+
 public:
     Tree operator+(Tree &b);
     Tree operator-(Tree &b);
@@ -42,6 +43,26 @@ class Set
     private:
     Tree *pimpl;
     public:
+        Set();
+        Set(int t);
+        ~Set();
+  /*    Tree operator+(Tree &b)
+    {
+        pimpl->operator+(*b);
+    }
+      Tree operator-(Tree &b)
+    {
+        pimpl->operator-(*b);
+    }
+    Tree operator*(Tree &b)
+    {
+        pimpl->operator*(*b);
+    }*/
+    node*check(int key)
+    {
+        pimpl->check(key);
+    }
+
     void push(int data)
     {
         pimpl->push(data);
@@ -50,12 +71,37 @@ class Set
     {
         pimpl->is_empty();
     }
-    protected:
     void show()
     {
         pimpl->show();
     }
 };
+
+Set::Set() : pimpl( new Tree ) {}
+
+Set::Set(int t)
+{
+    pimpl=new Tree(t);
+}
+
+Tree::Tree(int t)
+{
+    root=0;
+    for(int i=0; i<t; i++)
+    {
+        int k=rand()%100;
+        if(check(root,k)==0)
+            push(root,k);
+        else
+            t++;
+    }
+}
+
+Set::~Set()
+{
+    delete pimpl;
+    pimpl = 0;
+}
 
 Tree& Tree::operator = (const Tree &ob)
 {
@@ -106,19 +152,6 @@ node* Tree::check(node*wer,int key)
     else if(key<wer->n) return check(wer->left,key);
     else if(key>wer->n) return check(wer->right,key);
     else return wer;
-}
-
-Tree::Tree(int t)
-{
-    root=0;
-    for(int i=0; i<t; i++)
-    {
-        int k=rand()%100;
-        if(check(root,k)==0)
-            push(root,k);
-        else
-            t++;
-    }
 }
 
 Tree::Tree()
@@ -265,8 +298,8 @@ int main()
     int w=0,n;
     cout<<"Input a size of set: ";
     cin>>n;
-    Tree tr(n);
-    Tree tr2(n);
+    Set tr(n);
+    Set tr2(n);
     do
     {
         cout<<"select the required operation:"<<endl;
@@ -333,7 +366,7 @@ int main()
             tr2.show();
             cout<<endl;
             Tree tr3;
-            tr3=tr+tr2;
+           // tr3=tr+tr2;
             tr3.show();
             break;
         }
@@ -345,7 +378,7 @@ int main()
             tr2.show();
             cout<<endl;
             Tree tr3;
-            tr3=tr-tr2;
+            //tr3=tr-tr2;
             tr3.show();
             break;
         }
@@ -357,7 +390,7 @@ int main()
             tr2.show();
             cout<<endl;
             Tree tr3;
-            tr3=tr*tr2;
+            //tr3=tr*tr2;
             tr3.show();
             break;
         }
