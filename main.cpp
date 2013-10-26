@@ -22,11 +22,10 @@ private:
     void push(node*&wer,int data);// Вставка элемента в дерево
     void show(node*wer);
     node*check(node*wer,int key);
-
 public:
     Tree operator+(Tree &b);
-    Tree operator-(Tree &b);
-    Tree operator*(Tree &b);
+   Tree operator-(Tree &b);
+   Tree& operator*(Tree &b);
     Tree();
     Tree(int t);
     Tree (const Tree &ob);
@@ -38,7 +37,7 @@ public:
     Tree& operator = (const Tree &ob);
 };
 
-class Set
+class Set:public Tree
 {
     private:
     Tree *pimpl;
@@ -46,23 +45,27 @@ class Set
         Set();
         Set(int t);
         ~Set();
-  /*    Tree operator+(Tree &b)
+    Tree& operator = (const Tree &ob)
     {
-        pimpl->operator+(*b);
+        pimpl->operator=(ob);
     }
-      Tree operator-(Tree &b)
+      Tree operator+(Tree b)
     {
-        pimpl->operator-(*b);
+        pimpl->operator+(b);
+    }
+      Tree operator-(Tree b)
+    {
+        pimpl->operator-(b);
     }
     Tree operator*(Tree &b)
     {
-        pimpl->operator*(*b);
-    }*/
+        pimpl->operator*(b);
+    }
     node*check(int key)
     {
         pimpl->check(key);
+        return 0;
     }
-
     void push(int data)
     {
         pimpl->push(data);
@@ -70,6 +73,7 @@ class Set
     bool is_empty()
     {
         pimpl->is_empty();
+        return 0;
     }
     void show()
     {
@@ -200,7 +204,7 @@ void Tree::difference(node*wer,Tree &buf,Tree &tr2)
     }
 }
 
-Tree Tree::operator*(Tree &tr2)
+Tree& Tree::operator*(Tree &tr2)
 {
     Tree buf;
     intersection(root,buf,tr2);
@@ -365,8 +369,8 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            Tree tr3;
-           // tr3=tr+tr2;
+            Set tr3;
+            tr3=tr+tr2;
             tr3.show();
             break;
         }
@@ -377,8 +381,8 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            Tree tr3;
-            //tr3=tr-tr2;
+            Set tr3;
+            tr3=tr-tr2;
             tr3.show();
             break;
         }
@@ -389,8 +393,8 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            Tree tr3;
-            //tr3=tr*tr2;
+            Set tr3;
+            tr3=tr*tr2;
             tr3.show();
             break;
         }
