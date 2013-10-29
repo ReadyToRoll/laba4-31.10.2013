@@ -4,13 +4,21 @@
 
 using namespace std;
 
+class ConsoleSet:public Set
+{
+public:
+    void output (ostream &out) const;
+};
+
+ostream &operator<<(ostream &out, const ConsoleSet &set);
+
 int main()
 {
     int w=0,n;
     cout<<"Input a size of set: ";
     cin>>n;
-    Set tr(n);
-    Set tr2(n);
+    ConsoleSet tr(n);
+    ConsoleSet tr2(n);
     do
     {
         cout<<"select the required operation:"<<endl;
@@ -39,7 +47,7 @@ int main()
             else
             {
                 cout<<"Set 1:"<<endl;
-                tr.show();
+                output(tr);
             }
             cout<<endl<<endl;
             if(tr2.is_empty()==true)
@@ -47,7 +55,7 @@ int main()
             else
             {
                 cout<<"Set 2:"<<endl;
-                tr2.show();
+                output(tr2);
             }
             cout<<endl<<endl;
             break;
@@ -75,8 +83,8 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            Set tr3;
-            //&tr3=tr+tr2;
+            ConsoleSet tr3;
+            tr3=tr+tr2;
             tr3.show();
             break;
         }
@@ -87,8 +95,8 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            Set tr3;
-            //  &tr3=tr-tr2;
+            ConsoleSet tr3;
+            tr3=tr-tr2;
             tr3.show();
             break;
         }
@@ -99,8 +107,8 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            Set tr3;
-            // tr3=tr*tr2;
+            ConsoleSet tr3;
+            tr3=tr*tr2;
             tr3.show();
             break;
         }
@@ -109,4 +117,19 @@ int main()
         }
     }
     while(w!=7);
+}
+
+ostream &operator<<(ostream &out, const ConsoleSet &set)
+{
+    set.output(out);
+    return out;
+}
+
+void ConsoleSet::output(ostream &out) const
+{
+    int n;
+    if (nextDatum(true, n))
+        out<<n<<" ";
+    while (nextDatum(false, n))
+        out<<n<<" ";
 }

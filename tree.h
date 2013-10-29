@@ -21,6 +21,8 @@ public:
     Set operator+(Set &b);
     Set operator-(Set &b);
     Set operator*(Set &b);
+    protected:
+    bool nextDatum (bool start, int &datum) const;
 };
 
 #endif // TREE_H

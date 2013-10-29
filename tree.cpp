@@ -28,7 +28,7 @@ private:
     void intersection(node*wer,Tree &buf, node*root);
     void copyTree(node *&rootnew, node *rootold);
     void delTree(node *wer);
-    void push(node*&wer,int data);// Вставка элемента в дерево
+    void push(node*&wer,int data);
     void show(node*wer);
     bool check(node*wer,int key);
 public:
@@ -40,11 +40,19 @@ public:
     Tree (const Tree &ob);
     ~Tree();
     void push(int data);
-    void show();          // Вывод дерева на экран
+    void show();
     bool check(int key);
     bool is_empty();
     Tree& operator = (const Tree &ob);
+    bool nextDatum(bool start, int &datum) const;
 };
+
+Set &Set::operator= (const Set &ob)
+{
+pimpl->operator=(*ob.pimpl);
+return *this;
+}
+
 Set::Set(const Tree &other)
 {
     pimpl=new Tree(other);
@@ -304,4 +312,19 @@ void Set::Tree::show(node*root)
         cout<<root->n<<" ";
         show(root->right);
     }
+}
+
+bool Set::Tree::nextDatum(bool start, int &datum) const
+{
+    static Node *cur;
+    if (start)
+        cur=root;
+    bool result=cur!=0;
+    if (result)
+    {
+        datum=cur->datum;
+        cur=cur->left;
+        cur=cur->right;
+    }
+    return result;
 }
