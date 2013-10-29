@@ -28,7 +28,7 @@ int main()
             int data;
             cout<<"Enter value ";
             cin>>data;
-            if(tr.check(data)!=0)
+            if(tr.check(data)!=false)
                 cout<<"value already in set"<<endl;
             else
                 tr.push(data);
@@ -57,11 +57,10 @@ int main()
                 cout<<"Tree empty";
             else
             {
-                node *u;
                 int key;
                 cout<<"enter value to check: ";
                 cin>>key;
-                if((u=tr.check(key))!=0)
+                if((tr.check(key))!=false)
                 {
                     cout<<"Founded"<<endl<<endl;
                 }
@@ -89,7 +88,7 @@ int main()
             tr2.show();
             cout<<endl;
             Set tr3;
-          //  &tr3=tr-tr2;
+            //  &tr3=tr-tr2;
             tr3.show();
             break;
         }
@@ -101,7 +100,7 @@ int main()
             tr2.show();
             cout<<endl;
             Set tr3;
-            tr3=tr*tr2;
+            // tr3=tr*tr2;
             tr3.show();
             break;
         }

@@ -30,68 +30,62 @@ private:
     void delTree(node *wer);
     void push(node*&wer,int data);// Вставка элемента в дерево
     void show(node*wer);
-    node*check(node*wer,int key);
+    bool check(node*wer,int key);
 public:
     Tree operator+(Tree &b);
-   Tree operator-(Tree &b);
-   Tree operator*(Tree &b);
+    Tree operator-(Tree &b);
+    Tree operator*(Tree &b);
     Tree();
     Tree(int t);
     Tree (const Tree &ob);
     ~Tree();
     void push(int data);
     void show();          // Вывод дерева на экран
-    node*check(int key);
+    bool check(int key);
     bool is_empty();
     Tree& operator = (const Tree &ob);
 };
-/*
-
-Set& operator = (Tree ob)
-    {
-        pimpl->operator=(ob);
-    }
-      Tree operator+(Tree &b)
-    {
-        pimpl->operator+(b);
-    }
-      Tree operator-(Tree &b)
-    {
-        pimpl->operator-(b);
-    }
-    Set Set::operator*(Set &b)
-    {
-        return pimpl->operator*(b);
-    }*/
-
-Set &Set::operator= (const Set &ob)
+Set::Set(const Tree &other)
 {
-    return pimpl->operator=(ob);
+    pimpl=new Tree(other);
+}
+
+Set Set::operator+ (Set &b)
+{
+    Set c(pimpl->operator+(*b.pimpl));
+    return c;
+}
+
+Set Set::operator- (Set &b)
+{
+    Set c(pimpl->operator-(*b.pimpl));
+    return c;
 }
 
 Set Set::operator* (Set &b)
 {
-    return pimpl->operator*(b);
+    Set c(pimpl->operator*(*b.pimpl));
+    return c;
 }
 
-node* Set:: check(int key)
-    {
-        return pimpl->check(key);
-    }
+bool Set:: check(int key)
+{
+    return pimpl->check(key);
+}
 
 void Set::push(int data)
-    {
-        pimpl->push(data);
-    }
-    bool Set::is_empty()
-    {
-        pimpl->is_empty();
-        return 0;
-    }
-    void Set::show()
-    {
-        pimpl->show();
-    }
+{
+    pimpl->push(data);
+}
+bool Set::is_empty()
+{
+    pimpl->is_empty();
+    return 0;
+}
+void Set::show()
+{
+    pimpl->show();
+}
 
 
 Set::Set() : pimpl( new Tree ) {}
@@ -120,7 +114,7 @@ Set::~Set()
     pimpl = 0;
 }
 
-Set::Tree& Set::Tree::operator = (const Tree &ob)
+Set::Tree& Set::Tree::operator=(const Tree &ob)
 {
     if(this==&ob)
         return *this;
@@ -156,20 +150,20 @@ void Set::Tree::copyTree(node *&rootnew, node *rootold)
         copyTree(rootnew, rootold->right);
     }
 }
-node* Set::Tree::check(int key)
+bool Set::Tree::check(int key)
 {
-    if(root==0) return 0;
+    if(root==0) return false;
     else if(key<root->n) return check(root->left,key);
     else if(key>root->n) return check(root->right,key);
-    else return root;
+    else return true;
 }
 
-node* Set::Tree::check(node*wer,int key)
+bool Set::Tree::check(node*wer,int key)
 {
-    if(wer==0) return 0;
+    if(wer==0) return false;
     else if(key<wer->n) return check(wer->left,key);
     else if(key>wer->n) return check(wer->right,key);
-    else return wer;
+    else return true;
 }
 
 Set::Tree::Tree()

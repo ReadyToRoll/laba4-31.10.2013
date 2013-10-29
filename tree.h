@@ -5,22 +5,22 @@ struct node;
 
 class Set
 {
-    private:
-        class Tree;
+private:
+    class Tree;
     Tree *pimpl;
-    public:
-        Set();
-        Set(int t);
-        ~Set();
+    Set(const Tree &other);
+public:
+    Set();
+    Set(int t);
+    ~Set();
     void push(int data);
     bool is_empty();
     void show();
-    node* check(int key);
-    Set operator*(Set &b);
+    bool check(int key);
     Set& operator = (const Set &ob);
-   /*   Tree operator+(Tree &b);
-      Tree operator-(Tree &b);
-    Tree operator*(Tree &b);*/
+    Set operator+(Set &b);
+    Set operator-(Set &b);
+    Set operator*(Set &b);
 };
 
 #endif // TREE_H
