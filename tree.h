@@ -14,15 +14,14 @@ public:
     Set(int t);
     ~Set();
     void push(int data);
-    bool is_empty();
     void show();
+    bool is_empty();
     bool check(int key);
     Set& operator = (const Set &ob);
     Set operator+(Set &b);
     Set operator-(Set &b);
     Set operator*(Set &b);
-    protected:
-    bool nextDatum (bool start, int &datum) const;
+    void nextDatum(bool firstTime, bool ch, bool rootCh, int &datum) const;
 };
 
 #endif // TREE_H

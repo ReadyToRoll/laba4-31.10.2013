@@ -4,21 +4,21 @@
 
 using namespace std;
 
-class ConsoleSet:public Set
+class ConsoleSet: public Set
 {
-public:
-    void output (ostream &out) const;
+    public:
+        void output(Set &tr,int n) const;
 };
 
-ostream &operator<<(ostream &out, const ConsoleSet &set);
 
 int main()
 {
     int w=0,n;
     cout<<"Input a size of set: ";
     cin>>n;
-    ConsoleSet tr(n);
-    ConsoleSet tr2(n);
+    Set tr(n);
+    Set tr2(n);
+    ConsoleSet A;
     do
     {
         cout<<"select the required operation:"<<endl;
@@ -42,12 +42,13 @@ int main()
                 tr.push(data);
             break;
         case 2:
+            {
             if(tr.is_empty()==true)
                 cout<<"First set empty";
             else
             {
                 cout<<"Set 1:"<<endl;
-                output(tr);
+                A.output(tr,n);
             }
             cout<<endl<<endl;
             if(tr2.is_empty()==true)
@@ -55,10 +56,11 @@ int main()
             else
             {
                 cout<<"Set 2:"<<endl;
-                output(tr2);
+                A.output(tr2,n);
             }
             cout<<endl<<endl;
             break;
+        }
         case 3:
         {
             if(tr.is_empty()==true)
@@ -83,7 +85,7 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            ConsoleSet tr3;
+            Set tr3;
             tr3=tr+tr2;
             tr3.show();
             break;
@@ -95,7 +97,7 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            ConsoleSet tr3;
+            Set tr3;
             tr3=tr-tr2;
             tr3.show();
             break;
@@ -107,7 +109,7 @@ int main()
             cout<<endl<<"Set 2:"<<endl;
             tr2.show();
             cout<<endl;
-            ConsoleSet tr3;
+            Set tr3;
             tr3=tr*tr2;
             tr3.show();
             break;
@@ -119,17 +121,26 @@ int main()
     while(w!=7);
 }
 
-ostream &operator<<(ostream &out, const ConsoleSet &set)
-{
-    set.output(out);
-    return out;
-}
 
-void ConsoleSet::output(ostream &out) const
+void ConsoleSet::output(Set &tr, int n) const
 {
-    int n;
-    if (nextDatum(true, n))
-        out<<n<<" ";
-    while (nextDatum(false, n))
-        out<<n<<" ";
+    int l=0,i=0;
+            tr.nextDatum(false, false, true, l);
+            cout<<"l1 = "<<l<<endl;
+            i++;
+            while(i<n/2)
+            {
+                tr.nextDatum(false, false, false, l);
+                cout<<"l1 = "<<l<<endl;
+                i++;
+            }
+            i=0;
+            tr.nextDatum(true,true, false, l);
+            cout<<"l = "<<l<<endl;
+            while(i<n/2)
+            {
+                tr.nextDatum(false, true, false, l);
+                i++;
+                cout<<"l2 = "<<l<<endl;
+            }
 }

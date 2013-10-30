@@ -44,13 +44,13 @@ public:
     bool check(int key);
     bool is_empty();
     Tree& operator = (const Tree &ob);
-    bool nextDatum(bool start, int &datum) const;
+    void nextDatum(bool start, bool ch, bool rootCh, int &datum) const;
 };
 
 Set &Set::operator= (const Set &ob)
 {
-pimpl->operator=(*ob.pimpl);
-return *this;
+    pimpl->operator=(*ob.pimpl);
+    return *this;
 }
 
 Set::Set(const Tree &other)
@@ -93,6 +93,12 @@ bool Set::is_empty()
 void Set::show()
 {
     pimpl->show();
+}
+
+
+void Set::nextDatum(bool firstTime, bool ch, bool rootCh, int &datum) const
+{
+    return pimpl->nextDatum(firstTime, ch, rootCh, datum);
 }
 
 
@@ -286,16 +292,6 @@ void Set::Tree::push(int data)
     else if(data>root->n)push(root->right,data);
 }
 
-void Set::Tree::show()
-{
-    if(root!=0)
-    {
-        show(root->left);
-        cout<<root->n<<" ";
-        show(root->right);
-    }
-}
-
 bool Set::Tree::is_empty()
 {
     if(root==0)
@@ -314,17 +310,40 @@ void Set::Tree::show(node*root)
     }
 }
 
-bool Set::Tree::nextDatum(bool start, int &datum) const
+void Set::Tree::show()
 {
-    static Node *cur;
+    if(root!=0)
+    {
+        show(root->left);
+        cout<<root->n<<" ";
+        show(root->right);
+    }
+}
+
+void Set::Tree::nextDatum(bool start, bool ch, bool rootCh, int &datum) const
+{
+    static node *cur;
+    if(rootCh==true)
+    cur=root;
     if (start)
         cur=root;
-    bool result=cur!=0;
-    if (result)
+    else
     {
-        datum=cur->datum;
-        cur=cur->left;
-        cur=cur->right;
+        if(root!=0)
+        {
+            if(ch==false)
+            {
+                //cur=root;
+                cur=cur->left;
+            }
+            else
+                cur=cur->right;
+        }
+        else
+            return;
+            datum=cur->n;
+            return;
     }
-    return result;
+    datum=cur->n;
+    return;
 }
